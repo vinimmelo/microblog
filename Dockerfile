@@ -1,0 +1,23 @@
+FROM python:3.6-alpine
+
+RUN adduser -D microblog
+
+WORKDIR /home/microblog
+
+COPY requirements.txt requirements.txt
+RUN python -m venv venv
+RUN apk update && apk add postgresql-dev gcc musl-dev
+RUN venv/bin/pip install -r requirements.txt
+
+COPY app app
+COPY migrations migrations
+COPY microblog.py boot.sh ./
+RUN chmod +x boot.sh
+
+ENV FLASK_APP microblog
+
+RUN chown -R microblog:microblog ./
+USER microblog
+
+EXPOSE 5000
+ENTRYPOINT ["./boot.sh"]
