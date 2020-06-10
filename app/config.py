@@ -15,7 +15,6 @@ class Config:
     ) or "sqlite:///" + os.path.join(basedir, "app.db")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     ADMINS = ["naoresponda.microblog@yahoo.com"]
-    SERVER_NAME = "localhost:5000"
     MAIL_PORT = 8025
     MAIL_SERVER = os.getenv("MAIL_SERVER")
     LANGUAGES = ["pt-BR", "en"]
